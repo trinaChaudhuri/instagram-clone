@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import {View,StyleSheet,FlatList,SafeAreaView,Image,Text} from 'react-native';
+import {View,StyleSheet,FlatList,SafeAreaView,Image,Text,TouchableOpacity} from 'react-native';
 import { Root,appId } from './api';
 import HomeScreenHeader from './components/home-screen-header';
 import IonIcons from 'react-native-vector-icons/Ionicons';
@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export default function HomeScreen(props){
     const [feedData,setFeedData]=useState(null);
-
+    const [likedId,setLikeId]=useState("");
     useEffect(()=>{
         GetDataonHomeScreen()
     },[])
@@ -15,7 +15,7 @@ export default function HomeScreen(props){
     const GetDataonHomeScreen=()=>{
         axios.get(`${Root}/post`,{headers:{'app-id':appId}})
         .then(function(res){
-            console.log('hh',res.data.data)
+            console.log(res.data)
             setFeedData(res.data.data);
         })
         .catch(function(err){
@@ -23,8 +23,10 @@ export default function HomeScreen(props){
         })
     }
 
-    const RenderItem=({item})=>{
-        console.log('item',item.owner.picture)
+    const like=(id)=>{
+        setLikeId(id);
+    }
+    const RenderItem=({item,index})=>{
         const owner=item.owner;
         return(
             <View>
@@ -37,7 +39,16 @@ export default function HomeScreen(props){
                 </View>
                 <Image source={{uri:item.image}} style={{width:'100%',height:400}} />
                 <View style={{flexDirection:'row',padding:12,borderTopColor:'#e5e5e5',borderTopWidth:1}}>
+                    {index==likedId?(
+                    <TouchableOpacity onPress={()=>like(index)}>
+                    <IonIcons name="heart" size={25} color="red" />
+                    </TouchableOpacity>
+                    ):(
+                    <TouchableOpacity onPress={()=>like(index)}>
                     <IonIcons name="ios-heart-outline" size={25} color="black" />
+                    </TouchableOpacity>
+                    )}
+                    
                     <IonIcons name="ios-chatbubble-outline" size={23} color="black" style={{marginLeft:10}}/>
                     <IonIcons name="ios-paper-plane-outline" size={23} color='black' style={{marginLeft:10}}/>
                 </View>
