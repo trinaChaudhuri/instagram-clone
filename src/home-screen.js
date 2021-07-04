@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import {View,StyleSheet,FlatList,SafeAreaView,Image,Text} from 'react-native';
 import { Root,appId } from './api';
+import HomeScreenHeader from './components/home-screen-header';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 
@@ -45,7 +46,8 @@ export default function HomeScreen(props){
     }
 
     return(
-        <SafeAreaView style={{flex:1}}>
+        <SafeAreaView style={{flex:1,backgroundColor:'white'}}>
+            <HomeScreenHeader />
             <FlatList 
             data={feedData && feedData}
             renderItem={RenderItem}

@@ -8,6 +8,7 @@ import NotificationsScreen from '../notification-screen';
 import ProfileScreen from '../profile-screen';
 import ReelsScreen from '../reels-screen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 const BottomTab = createBottomTabNavigator();
 
 export default function BottomTabsNavigator(){
@@ -47,7 +48,7 @@ export default function BottomTabsNavigator(){
         options={{
             tabBarLabel: '',
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name="home" color='user' size={size} />
+              <AntDesign name="user" color='black' size={size} />
             ),
           }}/>
     </BottomTab.Navigator>
